@@ -1,0 +1,20 @@
+{
+  "name": "kitchen-passport",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AI-powered recipe generator: turn any pantry into an authentic global dish in 30+ languages, with a collectible cuisine passport.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
+  }
+}
