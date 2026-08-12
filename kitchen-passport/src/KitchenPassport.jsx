@@ -334,7 +334,14 @@ export default function KitchenPassport() {
   }
 
   async function generate(avoidPrevious) {
-    if (chips.length === 0) {
+    // Include an ingredient that was typed but not yet turned into a chip.
+    const active = [...chips];
+    const d = draft.trim().replace(/,+$/, "");
+    if (d && !active.some((c) => c.toLowerCase() === d.toLowerCase())) {
+      active.push(d);
+      addChip(d);
+    }
+    if (active.length === 0) {
       setError("Add at least one ingredient first.");
       inputRef.current?.focus();
       return;
@@ -364,7 +371,7 @@ export default function KitchenPassport() {
         : "";
 
     const prompt =
-      `Create ONE recipe using mainly these ingredients: ${chips.join(", ")}. ` +
+      `Create ONE recipe using mainly these ingredients: ${active.join(", ")}. ` +
       `Assume basic pantry staples (salt, pepper, oil, water) are available. ` +
       `Diet: ${diet}. Time limit: ${time}. Servings: ${servings}.` + styleClause + cuisineClause + scarceClause + avoid +
       ` Write EVERY text value in ${targetLang} — title, ingredient names, amounts and units, steps, tip, and nutrition labels. ` +
@@ -389,6 +396,8 @@ export default function KitchenPassport() {
       `Steps: up to 7, each under 20 words, in correct traditional order with key technique cues (bloom spices, rest, doneness like "until golden"). ` +
       `If the ingredients cannot make a real dish, respond {"error":"<short reason in ${targetLang}>"}.`;
 
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
     try {
       const res = await fetch(API_URL, {
         method: "POST",
@@ -398,7 +407,9 @@ export default function KitchenPassport() {
           max_tokens: 1200,
           messages: [{ role: "user", content: prompt }],
         }),
+        signal: controller.signal,
       });
+      if (!res.ok) throw new Error("bad response");
       const data = await res.json();
       const text = (data.content || [])
         .map((b) => (b.type === "text" ? b.text : ""))
@@ -413,10 +424,11 @@ export default function KitchenPassport() {
         commitRecipe(parsed);
       }
     } catch (e) {
-      // Live AI service unavailable (e.g. no API key on a public deploy):
-      // fall back to a built-in sample recipe so the demo still works.
+      // Live AI service unavailable, blocked, or slow (e.g. no API key on a
+      // public deploy): fall back to a built-in sample recipe so search works.
       commitRecipe(demoRecipe());
     } finally {
+      clearTimeout(timeout);
       setLoading(false);
     }
   }
