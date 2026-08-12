@@ -90,6 +90,103 @@ const LOADING_LINES = [
 
 const CONFETTI_EMOJI = ["🎉", "✨", "🥂", "🍽️"];
 
+// Built-in sample recipes shown when the live AI service can't be reached
+// (e.g. on a public site with no API key). Keeps the demo fully functional.
+const DEMO_RECIPES = [
+  {
+    title: "Pasta al Pomodoro", title_english: "Tomato Basil Pasta", pronunciation: "PAH-stah ahl poh-moh-DOH-roh",
+    emoji: "🍝", country: "Italy", flag: "🇮🇹", origin: "A Neapolitan classic built on a few ripe ingredients and patience.",
+    image_query: "spaghetti tomato basil", time_minutes: 25, servings: 2,
+    ingredients: [
+      { emoji: "🍝", item: "spaghetti", amount: "200 g" },
+      { emoji: "🍅", item: "ripe tomatoes", amount: "400 g" },
+      { emoji: "🧄", item: "garlic cloves", amount: "2" },
+      { emoji: "🌿", item: "fresh basil", amount: "a handful" },
+      { emoji: "🫒", item: "olive oil", amount: "2 tbsp" },
+    ],
+    steps: [
+      "Boil salted water and cook the spaghetti until just al dente.",
+      "Warm olive oil, add sliced garlic, and cook until barely golden and fragrant.",
+      "Add chopped tomatoes and a pinch of salt; simmer 12–15 min until saucy.",
+      "Tear in most of the basil and stir through.",
+      "Toss the drained pasta in the sauce with a splash of pasta water until glossy.",
+      "Finish with the rest of the basil and a drizzle of olive oil.",
+    ],
+    tip: "Save a little pasta water — its starch makes the sauce cling to every strand.",
+    unlock_ingredient: "parmesan", unlock_reason: "opens up dozens more Italian dishes",
+    nutrition: { calories: 520, protein_g: 15, carbs_g: 88, fat_g: 12,
+      labels: { calories: "calories", protein: "protein", carbs: "carbs", fat: "fat", note: "per serving, estimated" } },
+  },
+  {
+    title: "Chana Masala", title_english: "Spiced Chickpea Curry", pronunciation: "CHAH-nah mah-SAH-lah",
+    emoji: "🍛", country: "India", flag: "🇮🇳", origin: "A beloved North Indian street and home dish of chickpeas in a tangy, spiced gravy.",
+    image_query: "chana masala chickpea curry", time_minutes: 35, servings: 3,
+    ingredients: [
+      { emoji: "🫘", item: "cooked chickpeas", amount: "500 g" },
+      { emoji: "🧅", item: "onion, finely chopped", amount: "1 large" },
+      { emoji: "🍅", item: "tomatoes, pureed", amount: "2" },
+      { emoji: "🫚", item: "ginger-garlic paste", amount: "1 tbsp" },
+      { emoji: "🌶️", item: "garam masala & cumin", amount: "2 tsp" },
+    ],
+    steps: [
+      "Bloom cumin seeds in hot oil until they sizzle and smell nutty.",
+      "Add onion and fry until deep golden, not just soft.",
+      "Stir in ginger-garlic paste and cook off the raw smell.",
+      "Add tomato puree and spices; cook until the oil separates at the edges.",
+      "Fold in the chickpeas with a splash of water; simmer 10 min to marry the flavours.",
+      "Finish with garam masala and fresh coriander.",
+    ],
+    tip: "Mash a spoonful of the chickpeas into the gravy to thicken it naturally.",
+    unlock_ingredient: "yogurt", unlock_reason: "unlocks curries, marinades and raita",
+    nutrition: { calories: 340, protein_g: 15, carbs_g: 48, fat_g: 10,
+      labels: { calories: "calories", protein: "protein", carbs: "carbs", fat: "fat", note: "per serving, estimated" } },
+  },
+  {
+    title: "Tacos de Frijoles", title_english: "Black Bean Tacos", pronunciation: "TAH-kohs deh free-HOH-les",
+    emoji: "🌮", country: "Mexico", flag: "🇲🇽", origin: "Everyday Mexican tacos built on smoky, well-seasoned beans.",
+    image_query: "black bean tacos", time_minutes: 20, servings: 2,
+    ingredients: [
+      { emoji: "🫘", item: "black beans", amount: "400 g" },
+      { emoji: "🌽", item: "corn tortillas", amount: "6" },
+      { emoji: "🧅", item: "onion", amount: "1/2" },
+      { emoji: "🌶️", item: "cumin & chili powder", amount: "1 tsp each" },
+      { emoji: "🍋", item: "lime", amount: "1" },
+    ],
+    steps: [
+      "Toast the cumin and chili in a dry pan until fragrant.",
+      "Soften the onion in a little oil, then add the beans and spices.",
+      "Mash lightly and simmer until thick and glossy.",
+      "Warm the tortillas directly over the flame until spotty.",
+      "Fill, squeeze over lime, and top with coriander and onion.",
+    ],
+    tip: "Charring the tortillas over an open flame is the vendor's trick for real flavour.",
+    unlock_ingredient: "avocado", unlock_reason: "adds guacamole and countless toppings",
+    nutrition: { calories: 410, protein_g: 16, carbs_g: 66, fat_g: 9,
+      labels: { calories: "calories", protein: "protein", carbs: "carbs", fat: "fat", note: "per serving, estimated" } },
+  },
+  {
+    title: "Tamago Kake Gohan", title_english: "Egg Rice", pronunciation: "tah-MAH-goh KAH-keh GOH-han",
+    emoji: "🍚", country: "Japan", flag: "🇯🇵", origin: "A simple, comforting Japanese breakfast of hot rice and a fresh egg.",
+    image_query: "japanese egg rice", time_minutes: 10, servings: 1,
+    ingredients: [
+      { emoji: "🍚", item: "hot cooked rice", amount: "1 bowl" },
+      { emoji: "🥚", item: "very fresh egg", amount: "1" },
+      { emoji: "🍶", item: "soy sauce", amount: "1 tsp" },
+      { emoji: "🌿", item: "spring onion", amount: "1" },
+    ],
+    steps: [
+      "Cook the rice and keep it steaming hot.",
+      "Crack the egg into the hot rice and whisk quickly so it turns silky.",
+      "Add soy sauce and stir through.",
+      "Top with sliced spring onion and eat immediately.",
+    ],
+    tip: "The heat of the rice gently cooks the egg — use the freshest egg you can.",
+    unlock_ingredient: "nori", unlock_reason: "opens up onigiri and many rice dishes",
+    nutrition: { calories: 380, protein_g: 12, carbs_g: 62, fat_g: 7,
+      labels: { calories: "calories", protein: "protein", carbs: "carbs", fat: "fat", note: "per serving, estimated" } },
+  },
+];
+
 // Recipe generation endpoint. In the Claude preview this uses the built-in
 // (free, shared, rate-limited) service — no key or payment needed.
 // To lift the request limit later, self-host with your own key and point
@@ -189,6 +286,36 @@ export default function KitchenPassport() {
     setCopied(false);
   }
 
+  // Show a recipe and record it in the passport, recipe box, and history.
+  function commitRecipe(r) {
+    r._lang = targetLang;
+    showRecipe(r);
+    if (r.country) {
+      setCollection((prev) => {
+        const has = prev.some((x) => (x.country || "").toLowerCase() === r.country.toLowerCase());
+        const entry = { country: r.country, flag: r.flag || "🌍", lang: targetLang };
+        return has ? prev : [entry, ...prev].slice(0, 24);
+      });
+    }
+    const key = r.title_english || r.title;
+    setPrevious((p) => [...p.slice(-4), key]);
+    setBox((b) => {
+      const rest = b.filter((x) => (x.title_english || x.title) !== key);
+      return [r, ...rest].slice(0, 6);
+    });
+  }
+
+  // Pick a built-in sample recipe (used when the live AI service is unavailable).
+  function demoRecipe() {
+    let pool = DEMO_RECIPES;
+    if (cuisine && cuisine !== "Surprise me") {
+      const m = DEMO_RECIPES.filter((r) => r.country.toLowerCase() === cuisine.toLowerCase());
+      if (m.length) pool = m;
+    }
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    return { ...pick, _demo: true };
+  }
+
   function fireConfetti() {
     const pieces = Array.from({ length: 26 }, (_, i) => ({
       id: Date.now() + "-" + i,
@@ -283,24 +410,12 @@ export default function KitchenPassport() {
       if (parsed.error) {
         setError(parsed.error);
       } else {
-        parsed._lang = targetLang;
-        showRecipe(parsed);
-        if (parsed.country) {
-          setCollection((prev) => {
-            const has = prev.some((x) => (x.country || "").toLowerCase() === parsed.country.toLowerCase());
-            const entry = { country: parsed.country, flag: parsed.flag || "🌍", lang: targetLang };
-            return has ? prev : [entry, ...prev].slice(0, 24);
-          });
-        }
-        const key = parsed.title_english || parsed.title;
-        setPrevious((p) => [...p.slice(-4), key]);
-        setBox((b) => {
-          const rest = b.filter((x) => (x.title_english || x.title) !== key);
-          return [parsed, ...rest].slice(0, 6);
-        });
+        commitRecipe(parsed);
       }
     } catch (e) {
-      setError("The kitchen got a bit smoky — try again in a moment.");
+      // Live AI service unavailable (e.g. no API key on a public deploy):
+      // fall back to a built-in sample recipe so the demo still works.
+      commitRecipe(demoRecipe());
     } finally {
       setLoading(false);
     }
@@ -1102,6 +1217,11 @@ export default function KitchenPassport() {
             </div>
 
             <div style={{ padding: "18px 26px 0" }}>
+              {recipe._demo && (
+                <p style={{ textAlign: "center", margin: "0 0 8px", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#A0673F", fontWeight: 800 }}>
+                  ✦ Sample recipe · demo mode
+                </p>
+              )}
               {recipe.country && (
                 <p style={{ textAlign: "center", margin: "0 0 2px", fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: "#A0673F", fontWeight: 700 }}>
                   {recipe.flag ? recipe.flag + " " : ""}{recipe.country}
